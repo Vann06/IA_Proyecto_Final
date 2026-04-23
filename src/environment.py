@@ -1,0 +1,1 @@
+# Environment logic for hospital GridWorld
