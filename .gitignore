@@ -1,0 +1,110 @@
+# ── Python ─────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+.eggs/
+build/
+dist/
+develop-eggs/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ── Entornos virtuales ─────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.env
+.env.local
+.env.*.local
+
+# ── Testing / coverage ─────────────────────────────────────
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.cache/
+
+# ── Jupyter ────────────────────────────────────────────────
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+profile_default/
+ipython_config.py
+
+# ── Type checkers / linters ────────────────────────────────
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+
+# ── IDEs / editores ────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Logs / debug ───────────────────────────────────────────
+*.log
+logs/
+*.tmp
+*.bak
+
+# ── Resultados generados ───────────────────────────────────
+# Mantener estructura pero ignorar artefactos pesados
+results/figures/*.png
+results/figures/*.jpg
+results/figures/*.svg
+results/figures/*.pdf
+results/tables/*.csv
+results/tables/*.xlsx
+results/images/*.png
+results/images/*.jpg
+!results/**/.gitkeep
+!results/**/README.md
+
+# ── Modelos entrenados / checkpoints ───────────────────────
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.h5
+*.pt
+*.pth
+*.ckpt
+checkpoints/
+
+# ── Sistema operativo ──────────────────────────────────────
+$RECYCLE.BIN/
+ehthumbs.db
+ehthumbs_vista.db
+[Tt]humbs.db
+
+# ── Misc ───────────────────────────────────────────────────
+.claude/
+*.local
