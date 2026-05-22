@@ -147,6 +147,7 @@ class HospitalEnvironment:
 
         return new_row, new_col
 
+    
     def step(self, action):
         """
         Ejecuta una acción y avanza el entorno un paso.
@@ -155,7 +156,7 @@ class HospitalEnvironment:
             next_state : (row, col, battery)
             reward     : recompensa de la celda destino (o penalización por fallo)
             done       : True si el episodio terminó
-            info       : dict con detalles del paso (útil para depurar)
+            info       : dict con detalles del paso
         """
         row, col, battery = self.state
 
@@ -164,13 +165,15 @@ class HospitalEnvironment:
 
         # 2. Calcular nueva posición y batería
         if actual == Action.CHARGE:
-            new_row, new_col = row, col          # no hay movimiento
+            new_row, new_col = row, col
+
             if (row, col) == CHARGE_POS:
                 battery = min(battery + CHARGE_AMOUNT, self.max_battery)
-            # si no está en la estación, CHARGE no hace nada (no descuenta)
+
+            # CHARGE fuera de la estación no descuenta batería
         else:
             new_row, new_col = self._apply_move(row, col, actual)
-            battery -= 1                         # todo movimiento/stay cuesta 1
+            battery -= 1
 
         # 3. Recompensa según la celda donde quedó el robot
         cell_type = self.map[new_row][new_col]
@@ -178,24 +181,34 @@ class HospitalEnvironment:
 
         # 4. Condiciones de fin de episodio
         done = False
-        if (new_row, new_col) == GOAL_POS:      # entregó el medicamento
+        success = False
+        terminal_reason = None
+
+        if (new_row, new_col) == GOAL_POS:
             done = True
-        elif battery <= 0:                       # se quedó sin batería
+            success = True
+            terminal_reason = "goal"
+
+        elif battery <= 0:
             battery = 0
             reward = -50
             done = True
+            success = False
+            terminal_reason = "no_battery"
 
         self.state = (new_row, new_col, battery)
 
         info = {
-            'requested_action': Action(action).name,
-            'actual_action':    Action(actual).name,
-            'cell_type':        cell_type,
-            'battery':          battery,
+            "requested_action": Action(action).name,
+            "actual_action": Action(actual).name,
+            "cell_type": cell_type,
+            "battery": battery,
+            "success": success,
+            "terminal_reason": terminal_reason,
         }
 
         return self.state, reward, done, info
-
+    
     def get_possible_actions(self, state):
         """
         Devuelve la lista de acciones válidas para un estado dado.

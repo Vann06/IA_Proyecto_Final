@@ -108,3 +108,12 @@ ehthumbs_vista.db
 # ── Misc ───────────────────────────────────────────────────
 .claude/
 *.local
+
+
+# ── Results archivos ───────────────────────────────────────────────────
+results/plots/*
+results/tables/*
+results/*.csv
+results/*.png
+results/*.jpg
+results/*.jpeg

@@ -33,19 +33,31 @@ class QLearningAgent:
         td_error = reward + self.gamma * max_q_next - self.Q[state][action]
         self.Q[state][action] += self.alpha * td_error
 
-    def train(self, episodes=1000):
+    def train(self, episodes=1000, max_steps=500):
         self.rewards_per_episode = []
+        self.steps_per_episode = []
+
         for _ in range(episodes):
             state = self.env.reset()
             done = False
             total_reward = 0.0
-            while not done:
+            steps = 0
+
+            while not done and steps < max_steps:
                 action = self.choose_action(state)
+
+                if action is None:
+                    break
+
                 next_state, reward, done, _ = self.env.step(action)
                 self.update(state, action, reward, next_state)
+
                 state = next_state
                 total_reward += reward
+                steps += 1
+
             self.rewards_per_episode.append(total_reward)
+            self.steps_per_episode.append(steps)
 
     def get_policy(self):
         return {
